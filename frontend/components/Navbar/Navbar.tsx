@@ -1,26 +1,56 @@
 "use client";
 
 import * as React from "react";
-import { Button } from "../ui/button";
 import classes from "./Navbar.module.css";
 import { cn } from "@/lib/utils";
 import { NavigationMenu, NavigationMenuItem, NavigationMenuLink, NavigationMenuList } from "@/components/ui/navigation-menu";
 
 import { ConnectButton } from "@rainbow-me/rainbowkit";
+import { Button } from "../ui/button";
 
 export default function Navbar() {
   return (
-    <div className={`mt-12 m-auto flex justify-center ${classes.navbar} w-[35%] h-[3.5rem] rounded-lg`}>
+    <div className={`mt-12 m-auto flex justify-center ${classes.navbar} w-[60%] h-[3.5rem] rounded-lg`}>
       <NavigationMenu>
-        <NavigationMenuList className="flex gap-[32rem]">
+        <NavigationMenuList className="flex gap-[70rem]">
           <div>
             <NavigationMenuItem>Request</NavigationMenuItem>
           </div>
           <div className="flex gap-2">
             <NavigationMenuItem>
-              <Button className="h-8 w-20">
-                <ConnectButton />
-              </Button>
+              <ConnectButton.Custom>
+                {({ account, chain, openAccountModal, openConnectModal, authenticationStatus, mounted }) => {
+                  const ready = mounted && authenticationStatus !== "loading";
+                  const connected = ready && account && chain && (!authenticationStatus || authenticationStatus === "authenticated");
+
+                  return (
+                    <div
+                      {...(!ready && {
+                        "aria-hidden": true,
+                        style: {
+                          opacity: 0,
+                          pointerEvents: "none",
+                          userSelect: "none",
+                        },
+                      })}
+                    >
+                      {(() => {
+                        if (!connected) {
+                          return <Button onClick={openConnectModal}>Sign In</Button>;
+                        }
+
+                        return (
+                          <div style={{ display: "flex", gap: 12 }}>
+                            <Button onClick={openAccountModal} type="button">
+                              {account.displayName}
+                            </Button>
+                          </div>
+                        );
+                      })()}
+                    </div>
+                  );
+                }}
+              </ConnectButton.Custom>
             </NavigationMenuItem>
           </div>
         </NavigationMenuList>
