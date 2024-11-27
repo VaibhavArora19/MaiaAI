@@ -1,18 +1,15 @@
-/* eslint-disable @typescript-eslint/no-use-before-define */
-/* eslint-disable no-console */
-
 "use client";
 
 import Navbar from "@/components/Navbar/Navbar";
-
-// import RPC from "./viemRPC";
-// import RPC from "./web3RPC";
-// IMP END - Blockchain Calls
+import { Button } from "@/components/ui/button";
+import { useRouter } from "next/navigation";
 
 function App() {
+  const router = useRouter();
   return (
     <div className="">
       <Navbar />
+      <Button onClick={() => router.push("/intent")}>redirect</Button>
     </div>
   );
 }
