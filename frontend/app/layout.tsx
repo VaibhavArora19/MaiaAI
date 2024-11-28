@@ -41,7 +41,7 @@ export default function RootLayout({
       <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
         <WagmiProvider config={config}>
           <QueryClientProvider client={queryClient}>
-            <RainbowKitProvider modalSize="compact" theme={darkTheme()}>
+            <RainbowKitProvider modalSize="compact">
               <ReduxProvider>
                 <Navbar />
                 {children}

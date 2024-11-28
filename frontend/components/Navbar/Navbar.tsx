@@ -7,52 +7,68 @@ import { NavigationMenu, NavigationMenuItem, NavigationMenuLink, NavigationMenuL
 
 import { ConnectButton } from "@rainbow-me/rainbowkit";
 import { Button } from "../ui/button";
+import Image from "next/image";
+import { useRouter } from "next/navigation";
 
 export default function Navbar() {
+  const router = useRouter();
+
   return (
-    <div className={`mt-12 m-auto flex justify-center ${classes.navbar} w-[60%] h-[3.5rem] rounded-lg`}>
-      <NavigationMenu>
-        <NavigationMenuList className="flex gap-[70rem]">
-          <div>
-            <NavigationMenuItem>Request</NavigationMenuItem>
-          </div>
-          <div className="flex gap-2">
-            <NavigationMenuItem>
-              <ConnectButton.Custom>
-                {({ account, chain, openAccountModal, openConnectModal, authenticationStatus, mounted }) => {
-                  const ready = mounted && authenticationStatus !== "loading";
-                  const connected = ready && account && chain && (!authenticationStatus || authenticationStatus === "authenticated");
+    <div>
+      <NavigationMenu className="pt-4 flex m-auto w-[90%] h-[3.5rem]">
+        <NavigationMenuList className="flex gap-[40rem]">
+          <NavigationMenuItem onClick={() => router.push("/")} className="cursor-pointer">
+            <Image src="/logo.svg" alt="logo" width={100} height={100} />
+          </NavigationMenuItem>
 
-                  return (
-                    <div
-                      {...(!ready && {
-                        "aria-hidden": true,
-                        style: {
-                          opacity: 0,
-                          pointerEvents: "none",
-                          userSelect: "none",
-                        },
-                      })}
-                    >
-                      {(() => {
-                        if (!connected) {
-                          return <Button onClick={openConnectModal}>Sign In</Button>;
-                        }
+          <div className="flex gap-8">
+            <NavigationMenuItem className="cursor-pointer" onClick={() => router.push("/payments")}>
+              <h3 className="text-sm text-zinc-500 hover:text-black font-medium">Payments</h3>
+            </NavigationMenuItem>
 
-                        return (
-                          <div style={{ display: "flex", gap: 12 }}>
-                            <Button onClick={openAccountModal} type="button">
-                              {account.displayName}
-                            </Button>
-                          </div>
-                        );
-                      })()}
-                    </div>
-                  );
-                }}
-              </ConnectButton.Custom>
+            <NavigationMenuItem className="cursor-pointer" onClick={() => router.push("/requests")}>
+              <h3 className="text-sm text-zinc-500 hover:text-black font-medium">Requests</h3>
+            </NavigationMenuItem>
+
+            <NavigationMenuItem className="cursor-pointer" onClick={() => router.push("/alerts")}>
+              <h3 className="text-sm text-zinc-500 hover:text-black font-medium">Alerts</h3>
             </NavigationMenuItem>
           </div>
+          <NavigationMenuItem>
+            <ConnectButton.Custom>
+              {({ account, chain, openAccountModal, openConnectModal, authenticationStatus, mounted }) => {
+                const ready = mounted && authenticationStatus !== "loading";
+                const connected = ready && account && chain && (!authenticationStatus || authenticationStatus === "authenticated");
+
+                return (
+                  <div
+                    {...(!ready && {
+                      "aria-hidden": true,
+                      style: {
+                        opacity: 0,
+                        pointerEvents: "none",
+                        userSelect: "none",
+                      },
+                    })}
+                  >
+                    {(() => {
+                      if (!connected) {
+                        return <Button onClick={openConnectModal}>Sign In</Button>;
+                      }
+
+                      return (
+                        <div style={{ display: "flex", gap: 12 }}>
+                          <Button onClick={openAccountModal} type="button">
+                            {account.displayName}
+                          </Button>
+                        </div>
+                      );
+                    })()}
+                  </div>
+                );
+              }}
+            </ConnectButton.Custom>
+          </NavigationMenuItem>
         </NavigationMenuList>
       </NavigationMenu>
     </div>
