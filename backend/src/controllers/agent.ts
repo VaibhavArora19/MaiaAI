@@ -8,8 +8,6 @@ const generateResponse = async (req: Request, res: Response, next: NextFunction)
 
     const wallet = new ethers.Wallet(process.env.PRIVATE_KEY as string);
 
-    console.log("wallet is", wallet);
-
     const client = await V2Client.create(wallet, { env: "production" });
 
     const conversation = await client.conversations.newConversation("0x20647bDDa1Ce065566d73e8D702EE3f7E37f63CC"); //agent address

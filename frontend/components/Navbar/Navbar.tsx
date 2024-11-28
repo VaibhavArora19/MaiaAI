@@ -1,7 +1,6 @@
 "use client";
 
 import * as React from "react";
-import classes from "./Navbar.module.css";
 import { cn } from "@/lib/utils";
 import { NavigationMenu, NavigationMenuItem, NavigationMenuLink, NavigationMenuList } from "@/components/ui/navigation-menu";
 
@@ -16,7 +15,7 @@ export default function Navbar() {
   return (
     <div>
       <NavigationMenu className="pt-4 flex m-auto w-[90%] h-[3.5rem]">
-        <NavigationMenuList className="flex gap-[40rem]">
+        <NavigationMenuList className="flex gap-[40rem] lg:gap-[30rem]">
           <NavigationMenuItem onClick={() => router.push("/")} className="cursor-pointer">
             <Image src="/logo.svg" alt="logo" width={100} height={100} />
           </NavigationMenuItem>

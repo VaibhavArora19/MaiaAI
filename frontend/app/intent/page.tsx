@@ -75,7 +75,7 @@ const IntentPage = () => {
         <h1 className="text-center">What can I help with?</h1>
       </div>
       <div className="m-auto  flex w-full max-w-3xl items-center space-x-2 h-full">
-        <Input type="email" placeholder="Ask me something..." className="h-[3.2rem] z-10" value={input} onChange={(e) => setInput(e.target.value)} />
+        <Input type="text" placeholder="Ask me something..." className="h-[3.2rem] z-10" value={input} onChange={(e) => setInput(e.target.value)} />
 
         <Button type="submit" onClick={sendDM} className="h-[3.2rem] w-16 rounded-xl z-10">
           {isLoading ? <ThreeDots visible={true} height={100} width={100} color="white" radius={9} /> : <VscArrowSmallRight size={4} />}
@@ -104,7 +104,7 @@ const IntentPage = () => {
           </ToggleGroup>
         </div>
       )}
-      <div className="fixed bottom-0 left-[25%]">
+      <div className="fixed bottom-0 left-[25%] lg:left-[18%]">
         <Image src="https://stnx-static.s3.us-east-1.amazonaws.com/landing-page/gmoon.svg" alt="gmoon" height={1200} width={1200} />
       </div>
       {selectedOption && (
