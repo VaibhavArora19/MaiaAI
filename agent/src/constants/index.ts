@@ -10,3 +10,7 @@ export const TOKENS = [
         decimals: "18"
     }
 ]
+
+export const BACKEND_URL="http://localhost:8000";
+
+export const REQUEST_NETWORK_URL = "https://sepolia.gateway.request.network/";

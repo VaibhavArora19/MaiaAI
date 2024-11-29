@@ -47,7 +47,7 @@ export async function handler(context: XMTPContext) {
 
   const tokenAddress = TOKENS.filter(tokenDetails => tokenDetails.name.toLowerCase() === token.toLowerCase());
 
-  const amountInWei = ethers.parseUnits(amount, +tokenAddress[0].decimals).toString();
+  const amountInWei = ethers.utils.parseUnits(amount, +tokenAddress[0].decimals).toString();
 
 
   return {

@@ -52,8 +52,6 @@ run(
       agent,
     } = context;
 
-    console.log("message is", context.message)
-
     let prompt = await replaceVariables(systemPrompt, sender.address, agent);
     // [!region run1]
     // This is only used for to update the docs.
