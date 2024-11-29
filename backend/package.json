@@ -12,11 +12,12 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@requestnetwork/request-client.js": "^0.50.0",
     "@types/cors": "^2.8.17",
     "@xmtp/message-kit": "^1.2.7",
     "body-parse": "^0.1.0",
     "cors": "^2.8.5",
-    "ethers": "^6.13.4",
+    "ethers": "^5.7.2",
     "express": "^4.21.1",
     "tsx": "^4.19.2"
   },

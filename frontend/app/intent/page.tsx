@@ -12,6 +12,7 @@ import { useState } from "react";
 import Image from "next/image";
 import { ThreeDots } from "react-loader-spinner";
 import { useAccount } from "wagmi";
+import { BACKEND_URL } from "@/constants";
 
 type Option = {
   label: string;
@@ -53,7 +54,7 @@ const IntentPage = () => {
     if (!input || !address) return;
     setIsLoading(true);
 
-    const data = await fetch("http://localhost:8000/agent", {
+    const data = await fetch(`${BACKEND_URL}/agent`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
