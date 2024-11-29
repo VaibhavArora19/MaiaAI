@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "@xmtp/message-kit": "latest",
+    "ethers": "^6.13.4",
     "resend": "^4.0.1"
   },
   "devDependencies": {

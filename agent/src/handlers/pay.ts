@@ -3,7 +3,7 @@ import type { Skill } from "@xmtp/message-kit";
 
 export const registerSkill: Skill[] = [
   {
-    skill: "/pay [amount] [token] [username]",
+    skill: "/pay [amount] [token] [payerAddress] [payeeAddress]",
     examples: ["/pay 10 vitalik.eth"],
     description:
       "Send a specified amount of a cryptocurrency to a destination address. \nWhen tipping, you can asume its 1 usdc.",

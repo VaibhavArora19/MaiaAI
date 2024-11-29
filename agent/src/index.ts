@@ -16,6 +16,7 @@ import { registerSkill as resetSkill } from "./handlers/reset.js";
 import { registerSkill as tokenSkill } from "./handlers/token.js";
 import { registerSkill as gameSkill } from "./handlers/game.js";
 import { registerSkill as todoSkill } from "./handlers/todo.js";
+import { registerSkill as requestSkill } from "./handlers/request.js";
 import fs from "fs";
 
 export const frameUrl = "https://ens.steer.fun/";
@@ -36,6 +37,8 @@ export const agent: Agent = {
     ...paySkill,
     ...tokenSkill,
     ...gameSkill,
+    ...registerSkill,
+    ...requestSkill,
     ...(process.env.RESEND_API_KEY ? todoSkill : []),
   ],
 };
@@ -49,9 +52,11 @@ run(
       agent,
     } = context;
 
+    console.log("message is", context.message)
+
     let prompt = await replaceVariables(systemPrompt, sender.address, agent);
     // [!region run1]
-    //This is only used for to update the docs.
+    // This is only used for to update the docs.
     fs.writeFileSync("example_prompt.md", prompt);
     // [!region run2]
     await agentReply(context, prompt);
