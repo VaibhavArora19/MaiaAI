@@ -1,5 +1,4 @@
-import { ensUrl } from "../index.js";
-import { XMTPContext, getUserInfo } from "@xmtp/message-kit";
+import { XMTPContext } from "@xmtp/message-kit";
 import type { Skill } from "@xmtp/message-kit";
 import { TOKENS } from "../constants/index.js";
 import { ethers } from "ethers";
