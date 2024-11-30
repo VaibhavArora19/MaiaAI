@@ -83,7 +83,7 @@ const IntentPage = () => {
         </Button>
       </div>
       {!selectedOption && (
-        <div className="ml-[44%] mt-6">
+        <div className="ml-[45%] mt-6">
           <ToggleGroup type="multiple">
             {options.map((option) => {
               return (
@@ -105,9 +105,9 @@ const IntentPage = () => {
           </ToggleGroup>
         </div>
       )}
-      <div className="fixed bottom-0 left-[25%] lg:left-[18%]">
+      {/* <div className="fixed bottom-0 left-[30%]">
         <Image src="https://stnx-static.s3.us-east-1.amazonaws.com/landing-page/gmoon.svg" alt="gmoon" height={1200} width={1200} />
-      </div>
+      </div> */}
       {selectedOption && (
         <div className="w-[33%] m-auto pr-16 mt-2">
           <Table>

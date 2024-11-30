@@ -21,6 +21,9 @@ export default function Navbar() {
           </NavigationMenuItem>
 
           <div className="flex gap-8">
+            <NavigationMenuItem className="cursor-pointer" onClick={() => router.push("/intent")}>
+              <h3 className="text-sm text-zinc-500 hover:text-black font-medium">Maia AI</h3>
+            </NavigationMenuItem>
             <NavigationMenuItem className="cursor-pointer" onClick={() => router.push("/payments")}>
               <h3 className="text-sm text-zinc-500 hover:text-black font-medium">Payments</h3>
             </NavigationMenuItem>
