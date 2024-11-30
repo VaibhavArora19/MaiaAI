@@ -11,6 +11,8 @@ import { getDefaultConfig, RainbowKitProvider } from "@rainbow-me/rainbowkit";
 import { mainnet, polygon, optimism, arbitrum, base } from "wagmi/chains";
 import Navbar from "@/components/Navbar/Navbar";
 import Footer from "@/components/Footer/Footer";
+import { rainbowKitConfig } from "@/lib/wagmiConfig";
+import { Provider } from "@/lib/context";
 
 export const config = getDefaultConfig({
   appName: "My RainbowKit App",
@@ -40,13 +42,15 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
-        <WagmiProvider config={config}>
+        <WagmiProvider config={rainbowKitConfig}>
           <QueryClientProvider client={queryClient}>
             <RainbowKitProvider modalSize="compact">
               <ReduxProvider>
-                <Navbar />
-                {children}
-                <Footer />
+                <Provider>
+                  <Navbar />
+                  {children}
+                  <Footer />
+                </Provider>
               </ReduxProvider>
             </RainbowKitProvider>
           </QueryClientProvider>
