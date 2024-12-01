@@ -32,7 +32,7 @@ export default function Navbar() {
               <h3 className="text-sm text-zinc-500 hover:text-black font-medium">Requests</h3>
             </NavigationMenuItem>
 
-            <NavigationMenuItem className="cursor-pointer" onClick={() => router.push("/alerts")}>
+            <NavigationMenuItem className="cursor-pointer" onClick={() => router.push("/invoice")}>
               <h3 className="text-sm text-zinc-500 hover:text-black font-medium">Invoice</h3>
             </NavigationMenuItem>
           </div>
