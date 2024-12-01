@@ -9,10 +9,13 @@ import { LuBadgeDollarSign } from "react-icons/lu";
 import { RiBillFill } from "react-icons/ri";
 import { AiOutlineAlert } from "react-icons/ai";
 import { useState } from "react";
-import Image from "next/image";
+import { useWalletClient } from "wagmi";
 import { ThreeDots } from "react-loader-spinner";
 import { useAccount } from "wagmi";
 import { BACKEND_URL } from "@/constants";
+import { sleep } from "@/lib/sleep";
+import { createRequest } from "@/request-network/create";
+import { payToRequest } from "@/request-network/pay";
 
 type Option = {
   label: string;
@@ -46,9 +49,11 @@ export const options: Option[] = [
 
 const IntentPage = () => {
   const { address } = useAccount();
+  const { data: walletClient } = useWalletClient();
   const [selectedOption, setSelectedOption] = useState<Option | null>(null);
   const [input, setInput] = useState("");
   const [isLoading, setIsLoading] = useState(false);
+  const [displayText, setDisplayText] = useState("");
 
   const sendDM = async () => {
     if (!input || !address) return;
@@ -65,8 +70,30 @@ const IntentPage = () => {
       }),
     });
 
-    await data.json();
+    if (data.status !== 200) return;
 
+    const response = await data.json();
+    setDisplayText(response.reply);
+
+    await sleep(500);
+
+    const transaction = JSON.parse(response.transaction);
+
+    console.log("tt", transaction);
+
+    if (transaction.type === "CREATE") {
+      await createRequest(
+        walletClient,
+        transaction.payerAddress,
+        transaction.payeeAddress,
+        transaction.tokenAddress,
+        transaction.amountInWei,
+        transaction.reason,
+        transaction.dueDate
+      );
+    } else if (transaction.type === "PAY") {
+      await payToRequest(transaction.requestId);
+    }
     setIsLoading(false);
   };
 
@@ -82,6 +109,7 @@ const IntentPage = () => {
           {isLoading ? <ThreeDots visible={true} height={100} width={100} color="white" radius={9} /> : <VscArrowSmallRight size={4} />}
         </Button>
       </div>
+      {displayText !== "" && displayText}
       {!selectedOption && (
         <div className="ml-[45%] mt-6">
           <ToggleGroup type="multiple">

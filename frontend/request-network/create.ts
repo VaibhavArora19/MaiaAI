@@ -1,8 +1,8 @@
-import { ethers } from "ethers";
 import { Web3SignatureProvider } from "@requestnetwork/web3-signature";
 import { RequestNetwork, Types, Utils } from "@requestnetwork/request-client.js";
 import { feeRecipient, NETWORK, REQUEST_NETWORK_URL } from "@/constants";
 export async function createRequest(
+  provider: any,
   payerAddress: string,
   payeeAddress: string,
   tokenAddress: string,
@@ -10,10 +10,13 @@ export async function createRequest(
   reason: string,
   dueDate: string
 ) {
-  const provider = new ethers.providers.Web3Provider(window.ethereum);
+  // const provider = new ethers.providers.Web3Provider(window.ethereum);
+
+  console.log("provider", provider);
 
   const web3SignatureProvider = new Web3SignatureProvider(provider);
 
+  console.log("signer", web3SignatureProvider);
   const requestClient = new RequestNetwork({
     nodeConnectionConfig: {
       baseURL: REQUEST_NETWORK_URL,
@@ -59,7 +62,11 @@ export async function createRequest(
     },
   };
 
+  console.log({ requestCreateParameters });
+
   const request = await requestClient.createRequest(requestCreateParameters);
+
+  console.log("request", request);
 
   const confirmedRequestData = await request.waitForConfirmation();
 

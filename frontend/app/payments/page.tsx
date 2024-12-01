@@ -9,7 +9,7 @@ import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { TabsContent } from "@radix-ui/react-tabs";
 import { Loader2 } from "lucide-react";
 
-export type Request = {
+export type Payment = {
   id: string;
   amount: string;
   currency: string;
@@ -20,10 +20,10 @@ export type Request = {
   reason: string;
 };
 
-const RequestsPage = () => {
+const PaymentsPage = () => {
   const { address } = useAccount();
-  const [incomingRequests, setIncomingRequests] = useState<Request[] | null>(null);
-  const [outgoingRequests, setOutgoingRequests] = useState<Request[] | null>(null);
+  const [receivedPayments, setReceivedPayments] = useState<Payment[] | null>(null);
+  const [sentPayments, setSentPayments] = useState<Payment[] | null>(null);
 
   const getRequests = async () => {
     if (!address) return;
@@ -32,42 +32,42 @@ const RequestsPage = () => {
 
     const requests = await data.json();
 
-    const incomingRequestData = [];
-    const outgoingRequestData = [];
+    const receivedPaymentsData = [];
+    const sentPaymentsData = [];
 
     for (const request of requests) {
-      if (request.state === "created" && request.balance?.balance < request.expectedAmount) {
+      if (request.state === "created" && request.balance?.balance >= request.expectedAmount) {
         //outgoing request
         if (request.payee.value.toLowerCase() === address.toLowerCase()) {
-          outgoingRequestData.push({
+          receivedPaymentsData.push({
             id: request.requestId,
             payer: request.payer.value,
             currency: request.currency,
             amount: request.expectedAmount,
             reason: request.contentData.reason,
-            status: request.state,
+            status: "paid",
             dueDate: request.contentData.dueDate,
           });
         }
         if (request.payer.value.toLowerCase() === address.toLowerCase()) {
-          incomingRequestData.push({
+          sentPaymentsData.push({
             id: request.requestId,
             payer: request.extensionsData[0].parameters.paymentAddress,
             currency: request.currency,
             amount: request.expectedAmount,
             reason: request.contentData.reason,
-            status: request.state,
+            status: "paid",
             dueDate: request.contentData.dueDate,
           });
         }
       }
     }
 
-    console.log("data", incomingRequestData);
-    console.log("data 2", outgoingRequestData);
+    console.log("data", sentPaymentsData);
+    console.log("data 2", receivedPaymentsData);
 
-    setIncomingRequests(incomingRequestData);
-    setOutgoingRequests(outgoingRequestData);
+    setReceivedPayments(receivedPaymentsData);
+    setSentPayments(sentPaymentsData);
   };
 
   useEffect(() => {
@@ -77,26 +77,26 @@ const RequestsPage = () => {
 
   return (
     <div className="ml-[24%] mt-[12rem]">
-      <h1 className="text-[2.5rem] leading-loose font-semibold">Requests</h1>
-      <h3 className="text-lg text-zinc-500 font-medium">View and manage your requests</h3>
-      <Tabs defaultValue="incomingRequests" className="w-[67%] mt-10">
+      <h1 className="text-[2.5rem] leading-loose font-semibold">Payments</h1>
+      <h3 className="text-lg text-zinc-500 font-medium">View and manage your payments</h3>
+      <Tabs defaultValue="receivedPayments" className="w-[67%] mt-10">
         <TabsList>
-          <TabsTrigger value="incomingRequests">Incoming Requests</TabsTrigger>
-          <TabsTrigger value="outgoingRequests">Outgoing Requests</TabsTrigger>
+          <TabsTrigger value="receivedPayments">Incoming Payments</TabsTrigger>
+          <TabsTrigger value="sentPayments">Outgoing Payments</TabsTrigger>
         </TabsList>
-        <TabsContent value="incomingRequests">
+        <TabsContent value="receivedPayments">
           {" "}
           <div className=" mt-4">
-            {incomingRequests ? (
-              <DataTable columns={columns} data={incomingRequests} />
+            {receivedPayments ? (
+              <DataTable columns={columns} data={receivedPayments} />
             ) : (
               <Loader2 className="animate-spin m-auto text-zinc-500 mt-16" />
             )}
           </div>
         </TabsContent>
-        <TabsContent value="outgoingRequests">
+        <TabsContent value="sentPayments">
           {" "}
-          <div className="mt-4">{outgoingRequests && <DataTable columns={columns} data={outgoingRequests} />}</div>
+          <div className="mt-4">{sentPayments && <DataTable columns={columns} data={sentPayments} />}</div>
         </TabsContent>
       </Tabs>
 
@@ -105,4 +105,4 @@ const RequestsPage = () => {
   );
 };
 
-export default RequestsPage;
+export default PaymentsPage;

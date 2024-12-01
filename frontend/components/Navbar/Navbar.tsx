@@ -21,7 +21,7 @@ export default function Navbar() {
           </NavigationMenuItem>
 
           <div className="flex gap-8">
-            <NavigationMenuItem className="cursor-pointer" onClick={() => router.push("/intent")}>
+            <NavigationMenuItem className="cursor-pointer flex" onClick={() => router.push("/intent")}>
               <h3 className="text-sm text-zinc-500 hover:text-black font-medium">Maia AI</h3>
             </NavigationMenuItem>
             <NavigationMenuItem className="cursor-pointer" onClick={() => router.push("/payments")}>
@@ -33,7 +33,7 @@ export default function Navbar() {
             </NavigationMenuItem>
 
             <NavigationMenuItem className="cursor-pointer" onClick={() => router.push("/alerts")}>
-              <h3 className="text-sm text-zinc-500 hover:text-black font-medium">Alerts</h3>
+              <h3 className="text-sm text-zinc-500 hover:text-black font-medium">Invoice</h3>
             </NavigationMenuItem>
           </div>
           <NavigationMenuItem>
