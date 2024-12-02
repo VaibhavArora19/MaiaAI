@@ -14,7 +14,7 @@ const generateResponse = async (req: Request, res: Response, next: NextFunction)
 
     const conversation = await client.conversations.newConversation("0x20647bDDa1Ce065566d73e8D702EE3f7E37f63CC"); //agent address
 
-    const sentMessage = await conversation.send(message + ` from the address ${userAddress}`);
+    const sentMessage = await conversation.send(message + ` My address is ${userAddress}`);
 
     while (true) {
       const data = await sentMessage.conversation.messages();
