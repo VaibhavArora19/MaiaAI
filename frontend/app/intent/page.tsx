@@ -16,6 +16,8 @@ import { BACKEND_URL } from "@/constants";
 import { sleep } from "@/lib/sleep";
 import { createRequest } from "@/request-network/create";
 import { payToRequest } from "@/request-network/pay";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 type Option = {
   label: string;
@@ -56,45 +58,56 @@ const IntentPage = () => {
   const [displayText, setDisplayText] = useState("");
 
   const sendDM = async () => {
-    if (!input || !address) return;
-    setIsLoading(true);
+    try {
+      if (!input || !address) return;
+      setIsLoading(true);
 
-    const data = await fetch(`${BACKEND_URL}/agent`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        message: input,
-        userAddress: address,
-      }),
-    });
+      const data = await fetch(`${BACKEND_URL}/agent`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          message: input,
+          userAddress: address,
+        }),
+      });
 
-    if (data.status !== 200) return;
+      if (data.status !== 200) {
+        //!add an error message here
+        toast.error("Something went wrong");
+        setIsLoading(false);
+      }
 
-    const response = await data.json();
-    setDisplayText(response.reply);
+      const response = await data.json();
+      setDisplayText(response.reply);
 
-    await sleep(500);
+      await sleep(500);
 
-    const transaction = JSON.parse(response.transaction);
+      const transaction = JSON.parse(response.transaction);
 
-    console.log("tt", transaction);
+      console.log("tt", transaction);
 
-    if (transaction.type === "CREATE") {
-      await createRequest(
-        walletClient,
-        transaction.payerAddress,
-        transaction.payeeAddress,
-        transaction.tokenAddress,
-        transaction.amountInWei,
-        transaction.reason,
-        transaction.dueDate
-      );
-    } else if (transaction.type === "PAY") {
-      await payToRequest(transaction.requestId);
+      if (transaction.type === "CREATE") {
+        await createRequest(
+          walletClient,
+          transaction.payerAddress,
+          transaction.payeeAddress,
+          transaction.tokenAddress,
+          transaction.amountInWei,
+          transaction.reason,
+          transaction.dueDate
+        );
+        toast.success("Request created successfully");
+      } else if (transaction.type === "PAY") {
+        await payToRequest(transaction.requestId);
+        toast.success("Payment made successfully");
+      }
+      setIsLoading(false);
+    } catch (error) {
+      console.log("error: ", error);
+      toast.error("Something went wrong");
     }
-    setIsLoading(false);
   };
 
   return (
@@ -155,6 +168,7 @@ const IntentPage = () => {
           </Table>
         </div>
       )}
+      <ToastContainer position="bottom-right" />
     </div>
   );
 };
