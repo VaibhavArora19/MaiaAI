@@ -19,6 +19,8 @@ import { payToRequest } from "@/request-network/pay";
 import { ToastContainer, toast } from "react-toastify";
 import { FaMoneyCheckDollar } from "react-icons/fa6";
 import "react-toastify/dist/ReactToastify.css";
+import { ethers } from "ethers";
+import { useRouter } from "next/navigation";
 
 type Option = {
   label: string;
@@ -65,12 +67,14 @@ const IntentPage = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [sentMessage, setSentMessage] = useState("");
   const [receivedMessage, setReceviedMessage] = useState("");
+  const router = useRouter();
 
   const sendDM = async () => {
     try {
       if (!input || !address) return;
       setIsLoading(true);
       setSentMessage(input);
+      setReceviedMessage("");
       setInput("");
 
       const data = await fetch(`${BACKEND_URL}/agent`, {
@@ -88,10 +92,13 @@ const IntentPage = () => {
         //!add an error message here
         toast.error("Something went wrong");
         setIsLoading(false);
+        return;
       }
 
       const response = await data.json();
       setReceviedMessage(response.reply);
+
+      console.log("response is", response);
 
       await sleep(500);
 
@@ -102,8 +109,8 @@ const IntentPage = () => {
       if (transaction.type === "CREATE") {
         await createRequest(
           walletClient,
-          transaction.payerAddress,
-          transaction.payeeAddress,
+          ethers.utils.getAddress(transaction.payerAddress),
+          ethers.utils.getAddress(transaction.payeeAddress),
           transaction.tokenAddress,
           transaction.amountInWei,
           transaction.reason,
@@ -113,6 +120,10 @@ const IntentPage = () => {
       } else if (transaction.type === "PAY") {
         await payToRequest(transaction.requestId);
         toast.success("Payment made successfully");
+      } else if (transaction.type === "CREATE-INVOICE") {
+        router.push("/create-invoice");
+      } else if (transaction.type === "VIEW-INVOICE") {
+        router.push("/invoice");
       }
       setIsLoading(false);
     } catch (error) {
@@ -131,7 +142,7 @@ const IntentPage = () => {
       )}
       {sentMessage !== "" && (
         <div className="flex flex-col justify-center w-[28%] m-auto mb-6">
-          <h2 className="text-lg bg-primary px-4 pt-2 pb-2 block text-white rounded-2xl w-[56%] text-left ml-[420px] ">{sentMessage}</h2>
+          <h2 className="text-lg bg-primary px-4 pt-2 pb-2 block text-white rounded-2xl w-[56%] text-left ml-[350px] ">{sentMessage}</h2>
           {receivedMessage !== "" && <h2 className="text-lg bg-secondary px-4 pt-2 pb-2 rounded-2xl w-[56%] text-left mt-4">{receivedMessage}</h2>}
         </div>
       )}

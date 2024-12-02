@@ -14,7 +14,10 @@ const generateResponse = async (req: Request, res: Response, next: NextFunction)
 
     const conversation = await client.conversations.newConversation("0x20647bDDa1Ce065566d73e8D702EE3f7E37f63CC"); //agent address
 
-    const sentMessage = await conversation.send(message + ` My address is ${userAddress}`);
+    const sentMessage = await conversation.send(
+      message +
+        `. Suppose this message is sent by ${userAddress}. In case of request this is the payee address and in case of pay this is the payer address`
+    );
 
     while (true) {
       const data = await sentMessage.conversation.messages();
@@ -36,8 +39,17 @@ const generateResponse = async (req: Request, res: Response, next: NextFunction)
           transaction: lastMessage.content,
         });
         break;
+      } else if (lastMessage.content?.includes("Maia") || secondLastMessage.content?.includes("Maia")) {
+        res.status(200).json({
+          reply: lastMessage.content?.includes("Maia") ? lastMessage.content : secondLastMessage.content,
+        });
+        break;
+      } else if (lastMessage.content?.includes("Reminder sent successfully") || secondLastMessage.content?.includes("Reminder sent successfully")) {
+        res.status(200).json({
+          reply: lastMessage.content?.includes("Reminder sent successfully") ? lastMessage.content : secondLastMessage.content,
+        });
+        break;
       }
-
       await sleep(1000);
     }
   } catch (error) {
