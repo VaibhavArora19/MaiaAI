@@ -17,6 +17,8 @@ import { registerSkill as todoSkill } from "./handlers/remind.js";
 import { registerSkill as requestSkill } from "./handlers/request.js";
 import { registerSkill as viewInvoice } from "./handlers/view-invoice.js";
 import { registerSkill as remindSkill } from "./handlers/remind.js";
+import { registerSkill as createEscrowSkill } from "./handlers/create-escrow.js";
+import { registerSkill as payEscrowSkill } from "./handlers/pay-escrow.js";
 import fs from "fs";
 
 export const frameUrl = "https://ens.steer.fun/";
@@ -38,6 +40,8 @@ export const agent: Agent = {
     ...createInvoiceSkill,
     ...viewInvoice,
     ...remindSkill,
+    ...createEscrowSkill,
+    ...payEscrowSkill,
     ...(process.env.RESEND_API_KEY ? todoSkill : []),
   ],
 };

@@ -73,7 +73,7 @@ export async function handler(context: XMTPContext) {
         subject: "Reminder: You have a request to pay💸",
         html: `
         <h1>Hi there!</h1>
-        <p style="font-size: 17px">How are you doing? Seems like you have a pending request to pay to ${request[0].payee?.value}. The reason for this pending request is - ${request[0].contentData.reason}.<br /> <br /> This is a reminder to pay your request of ${amount} ${token} before ${request[0].contentData.dueDate}. <br /> <br /> Enjoy your day :) <br /> <br /> - Maia Bot.  </p>
+        <p>How are you doing? Seems like you have a pending request to pay to ${request[0].payee?.value}. The reason for this pending request is - ${request[0].contentData.reason}.<br /> <br /> This is a reminder to pay your request of ${amount} ${token} before ${request[0].contentData.dueDate}. <br /> <br /> Enjoy your day :) <br /> <br /> - Maia Bot.  </p>
       `,
       };
       await resend.emails.send(content);

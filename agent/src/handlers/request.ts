@@ -52,7 +52,7 @@ export async function handler(context: XMTPContext) {
 
   return {
     code: 200,
-    message: JSON.stringify({type: "CREATE", payerAddress: payerAddress, payeeAddress: payeeAddress, tokenAddress: tokenAddress[0].address, amountInWei:amountInWei, reason:reason, dueDate:dueDate})
+    message: JSON.stringify({type: "CREATE", payerAddress: payerAddress, payeeAddress: payeeAddress, tokenAddress: tokenAddress[0].address, amountInWei:amountInWei, reason:reason, dueDate:dueDate, tokenType: tokenAddress[0].type})
   }
 
 
