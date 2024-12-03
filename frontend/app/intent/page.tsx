@@ -21,6 +21,7 @@ import { FaMoneyCheckDollar } from "react-icons/fa6";
 import "react-toastify/dist/ReactToastify.css";
 import { ethers } from "ethers";
 import { useRouter } from "next/navigation";
+import { approveAndPayToEscrow, payFromEscrow } from "@/request-network/escrow";
 
 type Option = {
   label: string;
@@ -114,7 +115,8 @@ const IntentPage = () => {
           transaction.tokenAddress,
           transaction.amountInWei,
           transaction.reason,
-          transaction.dueDate
+          transaction.dueDate,
+          transaction.tokenType
         );
         toast.success("Request created successfully");
       } else if (transaction.type === "PAY") {
@@ -124,6 +126,12 @@ const IntentPage = () => {
         router.push("/create-invoice");
       } else if (transaction.type === "VIEW-INVOICE") {
         router.push("/invoice");
+      } else if (transaction.type === "CREATE-ESCROW") {
+        await approveAndPayToEscrow(transaction.requestId, transaction.tokenAddress);
+        toast.success("Payment added to escrow successfully");
+      } else if (transaction.type === "PAY-ESCROW") {
+        await payFromEscrow(transaction.requestId);
+        toast.success("Payment made successfully via escrow");
       }
       setIsLoading(false);
     } catch (error) {

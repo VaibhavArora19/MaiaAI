@@ -16,7 +16,7 @@ const generateResponse = async (req: Request, res: Response, next: NextFunction)
 
     const sentMessage = await conversation.send(
       message +
-        `. Suppose this message is sent by ${userAddress}. In case of request this is the payee address and in case of pay this is the payer address`
+        `. Suppose this message is sent by ${userAddress}. In case of request this is the payee address and in case of pay or escrow pay this is the payer address`
     );
 
     while (true) {

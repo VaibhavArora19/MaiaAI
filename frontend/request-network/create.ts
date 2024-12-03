@@ -8,7 +8,8 @@ export async function createRequest(
   tokenAddress: string,
   amountInWei: string,
   reason: string,
-  dueDate: string
+  dueDate: string,
+  tokenType: any
 ) {
   // const provider = new ethers.providers.Web3Provider(window.ethereum);
 
@@ -42,14 +43,25 @@ export async function createRequest(
       },
       timestamp: Utils.getCurrentTimestampInSecond(),
     },
+    //@ts-ignore
     paymentNetwork: {
-      id: Types.Extension.PAYMENT_NETWORK_ID.ERC20_FEE_PROXY_CONTRACT,
-      parameters: {
-        paymentNetworkName: NETWORK,
-        paymentAddress: payeeAddress,
-        feeAddress: feeRecipient,
-        feeAmount: "0",
-      },
+      id:
+        tokenType === Types.Extension.PAYMENT_NETWORK_ID.ERC20_FEE_PROXY_CONTRACT
+          ? Types.Extension.PAYMENT_NETWORK_ID.ERC20_FEE_PROXY_CONTRACT
+          : Types.Extension.PAYMENT_NETWORK_ID.ERC777_STREAM,
+      parameters:
+        tokenType === Types.Extension.PAYMENT_NETWORK_ID.ERC20_FEE_PROXY_CONTRACT
+          ? {
+              paymentNetworkName: NETWORK,
+              paymentAddress: payeeAddress,
+              feeAddress: feeRecipient,
+              feeAmount: "0",
+            }
+          : {
+              paymentAddress: payeeAddress,
+              expectedFlowRate: "10",
+              expectedStartDate: Utils.getCurrentTimestampInSecond().toString(),
+            },
     },
     contentData: {
       reason: reason,
