@@ -2,7 +2,7 @@ import Image from "next/image";
 
 const Footer = () => {
   return (
-    <div className="flex justify-center ">
+    <div className="flex justify-center">
       <div className="flex justify-between w-[50%] fixed bottom-6 align-center text-center content-center m-auto border-t-[1px] border-zinc-200 pt-8">
         <div className="flex">
           <Image src="logo.svg" alt="logo" width={100} height={100} />

@@ -22,6 +22,7 @@ import "react-toastify/dist/ReactToastify.css";
 import { ethers } from "ethers";
 import { useRouter } from "next/navigation";
 import { approveAndPayToEscrow, payFromEscrow } from "@/request-network/escrow";
+import Footer from "@/components/Footer/Footer";
 
 type Option = {
   label: string;
@@ -172,14 +173,14 @@ const IntentPage = () => {
         </Button>
       </div>
       {!selectedOption && (
-        <div className="ml-[41%] mt-6">
+        <div className="flex justify-center mt-6">
           <ToggleGroup type="multiple">
             {options.map((option) => {
               return (
                 <ToggleGroupItem
                   key={option.label}
                   value={option.label}
-                  className="ml-[0.75rem] mr-[0.75rem] border-zinc-400 border-[1px] rounded-sm w-[6.2rem] h-[2.1rem]"
+                  className="ml-[0.75rem] mr-[0.75rem] border-zinc-200 border-[1px] rounded-sm w-[6.2rem] h-[2.1rem]"
                   onClick={() => {
                     setSelectedOption(option);
                   }}
@@ -217,6 +218,7 @@ const IntentPage = () => {
         </div>
       )}
       <ToastContainer position="bottom-right" />
+      <Footer />
     </div>
   );
 };

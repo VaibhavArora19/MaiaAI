@@ -10,6 +10,7 @@ import Spinner from "@/components/ui/Spinner";
 import { Button } from "@/components/ui/button";
 import { FaPlus } from "react-icons/fa6";
 import { useRouter } from "next/navigation";
+import Footer from "@/components/Footer/Footer";
 
 const InvoiceDashboard = dynamic(() => import("@requestnetwork/invoice-dashboard/react"), { ssr: false, loading: () => <Spinner /> });
 
@@ -31,6 +32,7 @@ export default function InvoiceDashboardPage() {
           <FaPlus /> Create Invoice
         </Button>
       </div>
+      <Footer />
     </>
   );
 }

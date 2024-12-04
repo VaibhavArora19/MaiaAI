@@ -2,6 +2,7 @@
 
 import { ColumnDef } from "@tanstack/react-table";
 import { Request } from "./page";
+import { ethers } from "ethers";
 
 // This type is used to define the shape of our data.
 // You can use a Zod schema here if you want.
@@ -38,9 +39,10 @@ export const columns: ColumnDef<Request>[] = [
     accessorKey: "amount",
     header: () => <div className="text-center">Amount</div>,
     cell: ({ row }) => {
-      const amount = parseFloat(row.getValue("amount"));
+      const amount = row.getValue("amount").toString();
+      const currency = row.getValue("currency");
 
-      return <div className="text-center font-medium">{amount}</div>;
+      return <div className="text-center font-medium">{ethers.utils.formatUnits(amount, currency === "FAU-sepolia" ? 18 : 6).toString()}</div>;
     },
   },
   {

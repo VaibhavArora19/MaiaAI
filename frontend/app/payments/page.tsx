@@ -8,6 +8,7 @@ import { useAccount } from "wagmi";
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { TabsContent } from "@radix-ui/react-tabs";
 import { Loader2 } from "lucide-react";
+import Footer from "@/components/Footer/Footer";
 
 export type Payment = {
   id: string;
@@ -76,32 +77,34 @@ const PaymentsPage = () => {
   }, [address]);
 
   return (
-    <div className="ml-[24%] mt-[12rem]">
-      <h1 className="text-[2.5rem] leading-loose font-semibold">Payments</h1>
-      <h3 className="text-lg text-zinc-500 font-medium">View and manage your payments</h3>
-      <Tabs defaultValue="receivedPayments" className="w-[67%] mt-10">
-        <TabsList>
-          <TabsTrigger value="receivedPayments">Incoming Payments</TabsTrigger>
-          <TabsTrigger value="sentPayments">Outgoing Payments</TabsTrigger>
-        </TabsList>
-        <TabsContent value="receivedPayments">
-          {" "}
-          <div className=" mt-4">
-            {receivedPayments ? (
-              <DataTable columns={columns} data={receivedPayments} />
-            ) : (
-              <Loader2 className="animate-spin m-auto text-zinc-500 mt-16" />
-            )}
-          </div>
-        </TabsContent>
-        <TabsContent value="sentPayments">
-          {" "}
-          <div className="mt-4">{sentPayments && <DataTable columns={columns} data={sentPayments} />}</div>
-        </TabsContent>
-      </Tabs>
-
-      {/* <div className="w-[67%] mt-4">{incomingRequests && <DataTable columns={columns} data={incomingRequests} />}</div> */}
-    </div>
+    <>
+      <div className="ml-[24%] mt-[8rem]">
+        <h1 className="text-[2.5rem] leading-loose font-semibold">Payments</h1>
+        <h3 className="text-lg text-zinc-500 font-medium">View and manage your payments</h3>
+        <Tabs defaultValue="receivedPayments" className="w-[67%] mt-10">
+          <TabsList>
+            <TabsTrigger value="receivedPayments">Incoming Payments</TabsTrigger>
+            <TabsTrigger value="sentPayments">Outgoing Payments</TabsTrigger>
+          </TabsList>
+          <TabsContent value="receivedPayments">
+            {" "}
+            <div className=" mt-4">
+              {receivedPayments ? (
+                <DataTable columns={columns} data={receivedPayments} />
+              ) : (
+                <Loader2 className="animate-spin m-auto text-zinc-500 mt-16" />
+              )}
+            </div>
+          </TabsContent>
+          <TabsContent value="sentPayments">
+            {" "}
+            <div className="mt-4">{sentPayments && <DataTable columns={columns} data={sentPayments} />}</div>
+          </TabsContent>
+        </Tabs>
+        {/* <div className="w-[67%] mt-4">{incomingRequests && <DataTable columns={columns} data={incomingRequests} />}</div> */}
+      </div>
+      <Footer />
+    </>
   );
 };
 
