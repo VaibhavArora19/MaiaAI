@@ -2,7 +2,6 @@
 
 import localFont from "next/font/local";
 import "./globals.css";
-import { ReduxProvider } from "@/redux/reduxProvider";
 import { WagmiProvider } from "wagmi";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 
@@ -10,7 +9,6 @@ import "@rainbow-me/rainbowkit/styles.css";
 import { getDefaultConfig, RainbowKitProvider } from "@rainbow-me/rainbowkit";
 import { mainnet, polygon, optimism, arbitrum, base } from "wagmi/chains";
 import Navbar from "@/components/Navbar/Navbar";
-import Footer from "@/components/Footer/Footer";
 import { rainbowKitConfig } from "@/lib/wagmiConfig";
 import { Provider } from "@/lib/context";
 
@@ -45,12 +43,10 @@ export default function RootLayout({
         <WagmiProvider config={rainbowKitConfig}>
           <QueryClientProvider client={queryClient}>
             <RainbowKitProvider modalSize="compact">
-              <ReduxProvider>
-                <Provider>
-                  <Navbar />
-                  {children}
-                </Provider>
-              </ReduxProvider>
+              <Provider>
+                <Navbar />
+                {children}
+              </Provider>
             </RainbowKitProvider>
           </QueryClientProvider>
         </WagmiProvider>

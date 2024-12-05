@@ -1,8 +1,13 @@
 import { RequestNetwork } from "@requestnetwork/request-client.js";
 import { Web3SignatureProvider } from "@requestnetwork/web3-signature";
 import { getTheGraphClient } from "@requestnetwork/payment-detection";
+import React from "react";
+import { useWalletClient } from "wagmi";
 
-export const initializeRequestNetwork = (setter: any, walletClient: any) => {
+export const initializeRequestNetwork = (
+  setter: React.Dispatch<React.SetStateAction<RequestNetwork>>,
+  walletClient: ReturnType<typeof useWalletClient>["data"]
+) => {
   try {
     const web3SignatureProvider = new Web3SignatureProvider(walletClient);
 

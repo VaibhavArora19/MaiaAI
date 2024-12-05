@@ -24,13 +24,13 @@ import { useRouter } from "next/navigation";
 import { approveAndPayToEscrow, payFromEscrow } from "@/request-network/escrow";
 import Footer from "@/components/Footer/Footer";
 
-type Option = {
+type AiOption = {
   label: string;
   subOptions: string[];
   imageUrl: () => JSX.Element;
 };
 
-export const options: Option[] = [
+const options: AiOption[] = [
   {
     label: "Pay",
     subOptions: ["Pay 10 USDC ", "Pay 10 FAU ", "Pay 100 USDC ", "Pay 100 FAU "],
@@ -64,7 +64,7 @@ export const options: Option[] = [
 const IntentPage = () => {
   const { address } = useAccount();
   const { data: walletClient } = useWalletClient();
-  const [selectedOption, setSelectedOption] = useState<Option | null>(null);
+  const [selectedOption, setSelectedOption] = useState<AiOption | null>(null);
   const [input, setInput] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [sentMessage, setSentMessage] = useState("");
@@ -175,7 +175,7 @@ const IntentPage = () => {
       {!selectedOption && (
         <div className="flex justify-center mt-6">
           <ToggleGroup type="multiple">
-            {options.map((option) => {
+            {(options as AiOption[])?.map((option: AiOption) => {
               return (
                 <ToggleGroupItem
                   key={option.label}

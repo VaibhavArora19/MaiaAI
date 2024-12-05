@@ -11,6 +11,7 @@ import { Button } from "@/components/ui/button";
 import { FaPlus } from "react-icons/fa6";
 import { useRouter } from "next/navigation";
 import Footer from "@/components/Footer/Footer";
+import type { CurrencyTypes } from "@requestnetwork/types";
 
 const InvoiceDashboard = dynamic(() => import("@requestnetwork/invoice-dashboard/react"), { ssr: false, loading: () => <Spinner /> });
 
@@ -25,7 +26,12 @@ export default function InvoiceDashboardPage() {
       </Head>
 
       <div className="container m-auto  w-[100%] mt-16">
-        <InvoiceDashboard config={config} currencies={currencies} requestNetwork={requestNetwork} wagmiConfig={wagmiConfig} />
+        <InvoiceDashboard
+          config={config}
+          currencies={currencies as CurrencyTypes.CurrencyInput[]}
+          requestNetwork={requestNetwork}
+          wagmiConfig={wagmiConfig}
+        />
       </div>
       <div className="mt-4 absolute right-[43rem]" onClick={() => router.push("/create-invoice")}>
         <Button>
