@@ -12,9 +12,13 @@ import { registerSkill as registerSkill } from "./handlers/register.js";
 import { registerSkill as renewSkill } from "./handlers/renew.js";
 import { registerSkill as paySkill } from "./handlers/pay.js";
 import { registerSkill as resetSkill } from "./handlers/reset.js";
-
-import { registerSkill as todoSkill } from "./handlers/todo.js";
+import { registerSkill as createInvoiceSkill } from "./handlers/create-invoice.js";
+import { registerSkill as todoSkill } from "./handlers/remind.js";
 import { registerSkill as requestSkill } from "./handlers/request.js";
+import { registerSkill as viewInvoice } from "./handlers/view-invoice.js";
+import { registerSkill as remindSkill } from "./handlers/remind.js";
+import { registerSkill as createEscrowSkill } from "./handlers/create-escrow.js";
+import { registerSkill as payEscrowSkill } from "./handlers/pay-escrow.js";
 import fs from "fs";
 
 export const frameUrl = "https://ens.steer.fun/";
@@ -33,6 +37,11 @@ export const agent: Agent = {
     ...paySkill,
     ...registerSkill,
     ...requestSkill,
+    ...createInvoiceSkill,
+    ...viewInvoice,
+    ...remindSkill,
+    ...createEscrowSkill,
+    ...payEscrowSkill,
     ...(process.env.RESEND_API_KEY ? todoSkill : []),
   ],
 };
