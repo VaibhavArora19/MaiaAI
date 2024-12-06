@@ -1,0 +1,4 @@
+export const REQUEST_NETWORK_URL = "https://sepolia.gateway.request.network/";
+export const NETWORK = "sepolia"; //used in request network
+export const feeRecipient = "0x0000000000000000000000000000000000000000";
+//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiaW5kZXguanMiLCJzb3VyY2VSb290IjoiIiwic291cmNlcyI6WyIuLi8uLi9zcmMvY29uc3RhbnRzL2luZGV4LnRzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUFBLE1BQU0sQ0FBQyxNQUFNLG1CQUFtQixHQUFHLDBDQUEwQyxDQUFDO0FBRTlFLE1BQU0sQ0FBQyxNQUFNLE9BQU8sR0FBRyxTQUFTLENBQUMsQ0FBQyx5QkFBeUI7QUFFM0QsTUFBTSxDQUFDLE1BQU0sWUFBWSxHQUFHLDRDQUE0QyxDQUFDIn0=

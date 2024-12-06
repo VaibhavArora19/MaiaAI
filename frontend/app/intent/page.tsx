@@ -12,7 +12,6 @@ import { useState } from "react";
 import { useWalletClient } from "wagmi";
 import { ThreeDots } from "react-loader-spinner";
 import { useAccount } from "wagmi";
-import { BACKEND_URL } from "@/constants";
 import { sleep } from "@/lib/sleep";
 import { createRequest } from "@/request-network/create";
 import { payToRequest } from "@/request-network/pay";
@@ -79,7 +78,7 @@ const IntentPage = () => {
       setReceviedMessage("");
       setInput("");
 
-      const data = await fetch(`${BACKEND_URL}/agent`, {
+      const data = await fetch(`/agent`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

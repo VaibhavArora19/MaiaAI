@@ -1,0 +1,27 @@
+import { RequestNetwork, Types } from "@requestnetwork/request-client.js";
+import { REQUEST_NETWORK_URL } from "../../constants";
+export const findRequestByAddress = async (address) => {
+    const requestClient = new RequestNetwork({
+        nodeConnectionConfig: {
+            baseURL: REQUEST_NETWORK_URL,
+        },
+    });
+    const requests = await requestClient.fromIdentity({
+        type: Types.Identity.TYPE.ETHEREUM_ADDRESS,
+        value: address,
+    });
+    console.log("requests are: ", requests);
+    const requestDatas = requests.map((req) => req.getData());
+    console.log("request data is", requestDatas);
+    return requestDatas;
+};
+export const getRequestById = async (requestId) => {
+    const requestClient = new RequestNetwork({
+        nodeConnectionConfig: {
+            baseURL: REQUEST_NETWORK_URL,
+        },
+    });
+    const request = await requestClient.fromRequestId(requestId);
+    return request;
+};
+//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoicGF5LmpzIiwic291cmNlUm9vdCI6IiIsInNvdXJjZXMiOlsiLi4vLi4vLi4vc3JjL3Rvb2xzL3JlcXVlc3QtbmV0d29yay9wYXkudHMiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUEsT0FBTyxFQUFFLGNBQWMsRUFBRSxLQUFLLEVBQUUsTUFBTSxtQ0FBbUMsQ0FBQztBQUMxRSxPQUFPLEVBQUUsbUJBQW1CLEVBQUUsTUFBTSxpQkFBaUIsQ0FBQztBQUV0RCxNQUFNLENBQUMsTUFBTSxvQkFBb0IsR0FBRyxLQUFLLEVBQUUsT0FBZSxFQUFFLEVBQUU7SUFDNUQsTUFBTSxhQUFhLEdBQUcsSUFBSSxjQUFjLENBQUM7UUFDdkMsb0JBQW9CLEVBQUU7WUFDcEIsT0FBTyxFQUFFLG1CQUFtQjtTQUM3QjtLQUNGLENBQUMsQ0FBQztJQUVILE1BQU0sUUFBUSxHQUFHLE1BQU0sYUFBYSxDQUFDLFlBQVksQ0FBQztRQUNoRCxJQUFJLEVBQUUsS0FBSyxDQUFDLFFBQVEsQ0FBQyxJQUFJLENBQUMsZ0JBQWdCO1FBQzFDLEtBQUssRUFBRSxPQUFPO0tBQ2YsQ0FBQyxDQUFDO0lBRUgsT0FBTyxDQUFDLEdBQUcsQ0FBQyxnQkFBZ0IsRUFBRSxRQUFRLENBQUMsQ0FBQztJQUV4QyxNQUFNLFlBQVksR0FBRyxRQUFRLENBQUMsR0FBRyxDQUFDLENBQUMsR0FBRyxFQUFFLEVBQUUsQ0FBQyxHQUFHLENBQUMsT0FBTyxFQUFFLENBQUMsQ0FBQztJQUUxRCxPQUFPLENBQUMsR0FBRyxDQUFDLGlCQUFpQixFQUFFLFlBQVksQ0FBQyxDQUFDO0lBRTdDLE9BQU8sWUFBWSxDQUFDO0FBQ3RCLENBQUMsQ0FBQztBQUVGLE1BQU0sQ0FBQyxNQUFNLGNBQWMsR0FBRyxLQUFLLEVBQUUsU0FBaUIsRUFBRSxFQUFFO0lBQ3hELE1BQU0sYUFBYSxHQUFHLElBQUksY0FBYyxDQUFDO1FBQ3ZDLG9CQUFvQixFQUFFO1lBQ3BCLE9BQU8sRUFBRSxtQkFBbUI7U0FDN0I7S0FDRixDQUFDLENBQUM7SUFFSCxNQUFNLE9BQU8sR0FBRyxNQUFNLGFBQWEsQ0FBQyxhQUFhLENBQUMsU0FBUyxDQUFDLENBQUM7SUFFN0QsT0FBTyxPQUFPLENBQUM7QUFDakIsQ0FBQyxDQUFDIn0=

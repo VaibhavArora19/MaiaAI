@@ -3,7 +3,6 @@
 import { useEffect, useState } from "react";
 import { columns } from "./columns";
 import { DataTable } from "./data-table";
-import { BACKEND_URL } from "@/constants";
 import { useAccount } from "wagmi";
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { TabsContent } from "@radix-ui/react-tabs";
@@ -29,7 +28,7 @@ const RequestsPage = () => {
   const getRequests = async () => {
     if (!address) return;
 
-    const data = await fetch(`${BACKEND_URL}/request/address/${address}`);
+    const data = await fetch(`/request/address/${address}`);
 
     const requests = await data.json();
 

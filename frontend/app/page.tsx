@@ -29,7 +29,7 @@ function App() {
         <div>
           <h1 className="text-3xl font-semibold text-center">How founders use Maia</h1>
         </div>
-        <div className="grid grid-cols-2 gap-4 mt-8">
+        <div className="grid grid-cols-2 gap-4 mt-8 w-[1250px]">
           <div>
             <ImageCard
               className="w-full text-lg text-center text-zinc-600"
@@ -48,7 +48,7 @@ function App() {
           </div>
           <div>
             <ImageCard
-              className="w-[1270px] text-lg text-center text-zinc-600"
+              className="w-[1250px] text-lg text-center text-zinc-600"
               imageSrc="/remind.png"
               heading="Reminders"
               paragraph="Remind people about the due payments. Our AI model only alerts people when the payment is due."

@@ -1,0 +1,6 @@
+import express from "express";
+import agentController from "../controllers/agent";
+const router = express.Router();
+router.post("/agent", agentController.generateResponse);
+export default router;
+//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiYWdlbnQuanMiLCJzb3VyY2VSb290IjoiIiwic291cmNlcyI6WyIuLi8uLi9zcmMvcm91dGVzL2FnZW50LnRzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUFBLE9BQU8sT0FBTyxNQUFNLFNBQVMsQ0FBQztBQUM5QixPQUFPLGVBQWUsTUFBTSxzQkFBc0IsQ0FBQztBQUVuRCxNQUFNLE1BQU0sR0FBRyxPQUFPLENBQUMsTUFBTSxFQUFFLENBQUM7QUFFaEMsTUFBTSxDQUFDLElBQUksQ0FBQyxRQUFRLEVBQUUsZUFBZSxDQUFDLGdCQUFnQixDQUFDLENBQUM7QUFFeEQsZUFBZSxNQUFNLENBQUMifQ==
