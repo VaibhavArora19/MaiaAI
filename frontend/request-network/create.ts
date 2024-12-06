@@ -43,7 +43,7 @@ export async function createRequest(
       },
       timestamp: Utils.getCurrentTimestampInSecond(),
     },
-    //@ts-ignore
+    //@ts-expect-error this is a message to silent the error warning
     paymentNetwork: {
       id:
         tokenType === Types.Extension.PAYMENT_NETWORK_ID.ERC20_FEE_PROXY_CONTRACT
